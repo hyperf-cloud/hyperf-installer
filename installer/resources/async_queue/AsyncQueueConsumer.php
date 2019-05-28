@@ -10,6 +10,14 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
  */
 
-return [
-    Hyperf\AsyncQueue\Process\ConsumerProcess::class,
-];
+namespace App\Process;
+
+use Hyperf\Process\Annotation\Process;
+use Hyperf\AsyncQueue\Process\ConsumerProcess;
+
+/**
+ * @Process
+ */
+class AsyncQueueConsumer extends ConsumerProcess
+{
+}
