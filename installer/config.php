@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 return [
     'packages' => [
+        'hyperf/amqp' => [
+            'version' => 'dev-master',
+        ],
         'hyperf/constants' => [
             'version' => 'dev-master',
         ],
@@ -103,6 +106,25 @@ return [
                     'resources' => [
                         'resources/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
                         'resources/async_queue/async_queue.php' => 'config/autoload/async_queue.php',
+                    ],
+                ],
+            ],
+        ],
+        'amqp' => [
+            'question' => 'Do you want to use hyperf/amqp component?',
+            'default' => 'n',
+            'required' => false,
+            'force' => true,
+            'custom-package' => true,
+            'options' => [
+                1 => [
+                    'name' => 'amqp',
+                    'packages' => [
+                        'hyperf/amqp',
+                    ],
+                    'resources' => [
+                        'resources/amqp/AmqpHelper.php' => 'app/Kernel/Helper/AmqpHelper.php',
+                        'resources/amqp/amqp.php' => 'config/autoload/amqp.php',
                     ],
                 ],
             ],

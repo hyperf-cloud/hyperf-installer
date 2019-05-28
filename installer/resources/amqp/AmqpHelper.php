@@ -12,10 +12,9 @@ declare(strict_types=1);
 
 namespace App\Kernel\Helper;
 
-use App\Job\AmqpProducerJob;
-use Hyperf\Amqp\Message\ProducerMessageInterface;
 use Hyperf\Amqp\Producer;
 use Hyperf\Utils\ApplicationContext;
+use Hyperf\Amqp\Message\ProducerMessageInterface;
 
 class AmqpHelper
 {
