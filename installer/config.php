@@ -106,6 +106,7 @@ return [
                     'resources' => [
                         'resources/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
                         'resources/async_queue/async_queue.php' => 'config/autoload/async_queue.php',
+                        'resources/async_queue/QueueHandleListener.php' => 'app/Listener/QueueHandleListener.php',
                     ],
                 ],
             ],
