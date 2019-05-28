@@ -15,6 +15,9 @@ return [
         'hyperf/constants' => [
             'version' => 'dev-master',
         ],
+        'hyperf/async-queue' => [
+            'version' => 'dev-master',
+        ],
         'hyperf/json-rpc' => [
             'version' => 'dev-master',
         ],
@@ -81,6 +84,24 @@ return [
                         'resources/src/constants/ErrorCode.php' => 'app/Constants/ErrorCode.php',
                         'resources/src/constants/BusinessException.php' => 'app/Exception/BusinessException.php',
                         'resources/src/constants/BusinessExceptionHandler.php' => 'app/Exception/Handler/BusinessExceptionHandler.php',
+                    ],
+                ],
+            ],
+        ],
+        'async-queue' => [
+            'question' => 'Do you want to use hyperf/async-queue component?',
+            'default' => 'n',
+            'required' => false,
+            'force' => true,
+            'custom-package' => true,
+            'options' => [
+                1 => [
+                    'name' => 'async-queue',
+                    'packages' => [
+                        'hyperf/async-queue',
+                    ],
+                    'resources' => [
+                        'resources/src/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
                     ],
                 ],
             ],

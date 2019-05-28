@@ -15,6 +15,7 @@ namespace App\Kernel\Helper;
 use Hyperf\AsyncQueue\JobInterface;
 use Hyperf\AsyncQueue\Driver\DriverFactory;
 use Hyperf\AsyncQueue\Driver\DriverInterface;
+use Hyperf\Utils\ApplicationContext;
 
 class QueueHelper
 {
@@ -32,6 +33,6 @@ class QueueHelper
 
     private static function getDriver($name): DriverInterface
     {
-        return di()->get(DriverFactory::class)->get($name);
+        return ApplicationContext::getContainer()->get(DriverFactory::class)->get($name);
     }
 }
