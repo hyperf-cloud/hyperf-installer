@@ -109,6 +109,7 @@ return [
                     'resources' => [
                         'resources/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
                         'resources/async_queue/async_queue.php' => 'config/autoload/async_queue.php',
+                        'resources/async_queue/processes.php' => 'config/autoload/processes.php',
                         'resources/async_queue/QueueHandleListener.php' => 'app/Listener/QueueHandleListener.php',
                     ],
                 ],
@@ -147,6 +148,7 @@ return [
                     ],
                     'resources' => [
                         'resources/model_cache/Model.php' => 'app/Model/Model.php',
+                        'resources/model_cache/databases.php' => 'config/autoload/databases.php',
                     ],
                 ],
             ],
