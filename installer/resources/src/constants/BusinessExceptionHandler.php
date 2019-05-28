@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace App\Exception\Handler;
 
 use Throwable;
+use App\Constants\ErrorCode;
 use App\Kernel\Http\Response;
 use App\Exception\BusinessException;
 use Psr\Container\ContainerInterface;
@@ -54,7 +55,7 @@ class BusinessExceptionHandler extends ExceptionHandler
 
         $this->logger->error(format_throwable($throwable));
 
-        return $this->response->fail(500, 'Server Error！');
+        return $this->response->fail(ErrorCode::SERVER_ERROR, 'Server Error！');
     }
 
     public function isValid(Throwable $throwable): bool

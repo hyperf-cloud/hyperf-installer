@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 return [
     'packages' => [
+        'hyperf/constants' => [
+            'version' => 'dev-master',
+        ],
         'hyperf/json-rpc' => [
             'version' => 'dev-master',
         ],
@@ -58,6 +61,26 @@ return [
                         'hyperf/grpc-server',
                     ],
                     'resources' => [
+                    ],
+                ],
+            ],
+        ],
+        'constants' => [
+            'question' => 'Do you want to use hyperf/constants component?',
+            'default' => 'n',
+            'required' => false,
+            'force' => true,
+            'custom-package' => false,
+            'options' => [
+                1 => [
+                    'name' => 'constants',
+                    'packages' => [
+                        'hyperf/constants',
+                    ],
+                    'resources' => [
+                        'resources/src/constants/ErrorCode.php' => 'app/Constants/ErrorCode.php',
+                        'resources/src/constants/BusinessException.php' => 'app/Exception/BusinessException.php',
+                        'resources/src/constants/BusinessExceptionHandler.php' => 'app/Exception/Handler/BusinessExceptionHandler.php',
                     ],
                 ],
             ],
