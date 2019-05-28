@@ -15,10 +15,13 @@ return [
         'hyperf/amqp' => [
             'version' => 'dev-master',
         ],
-        'hyperf/constants' => [
+        'hyperf/async-queue' => [
             'version' => 'dev-master',
         ],
-        'hyperf/async-queue' => [
+        'hyperf/model-cache' => [
+            'version' => 'dev-master',
+        ],
+        'hyperf/constants' => [
             'version' => 'dev-master',
         ],
         'hyperf/json-rpc' => [
@@ -126,6 +129,24 @@ return [
                     'resources' => [
                         'resources/amqp/AmqpHelper.php' => 'app/Kernel/Helper/AmqpHelper.php',
                         'resources/amqp/amqp.php' => 'config/autoload/amqp.php',
+                    ],
+                ],
+            ],
+        ],
+        'model-cache' => [
+            'question' => 'Do you want to use hyperf/model-cache component?',
+            'default' => 'n',
+            'required' => false,
+            'force' => true,
+            'custom-package' => true,
+            'options' => [
+                1 => [
+                    'name' => 'model-cache',
+                    'packages' => [
+                        'hyperf/model-cache',
+                    ],
+                    'resources' => [
+                        'resources/model_cache/Model.php' => 'app/Model/Model.php',
                     ],
                 ],
             ],

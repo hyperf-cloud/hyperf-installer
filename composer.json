@@ -36,7 +36,6 @@
         "hyperf/http-server": "dev-master",
         "hyperf/logger": "dev-master",
         "hyperf/memory": "dev-master",
-        "hyperf/model-cache": "dev-master",
         "hyperf/paginator": "dev-master",
         "hyperf/pool": "dev-master",
         "hyperf/process": "dev-master",
