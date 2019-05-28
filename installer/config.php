@@ -81,9 +81,9 @@ return [
                         'hyperf/constants',
                     ],
                     'resources' => [
-                        'resources/src/constants/ErrorCode.php' => 'app/Constants/ErrorCode.php',
-                        'resources/src/constants/BusinessException.php' => 'app/Exception/BusinessException.php',
-                        'resources/src/constants/BusinessExceptionHandler.php' => 'app/Exception/Handler/BusinessExceptionHandler.php',
+                        'resources/constants/ErrorCode.php' => 'app/Constants/ErrorCode.php',
+                        'resources/constants/BusinessException.php' => 'app/Exception/BusinessException.php',
+                        'resources/constants/BusinessExceptionHandler.php' => 'app/Exception/Handler/BusinessExceptionHandler.php',
                     ],
                 ],
             ],
@@ -101,8 +101,8 @@ return [
                         'hyperf/async-queue',
                     ],
                     'resources' => [
-                        'resources/src/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
-                        'resources/src/async_queue/async_queue.php' => 'config/autoload/async_queue.php',
+                        'resources/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
+                        'resources/async_queue/async_queue.php' => 'config/autoload/async_queue.php',
                     ],
                 ],
             ],
