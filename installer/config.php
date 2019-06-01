@@ -89,7 +89,6 @@ return [
                     'resources' => [
                         'resources/constants/ErrorCode.php' => 'app/Constants/ErrorCode.php',
                         'resources/constants/BusinessException.php' => 'app/Exception/BusinessException.php',
-                        'resources/constants/BusinessExceptionHandler.php' => 'app/Exception/Handler/BusinessExceptionHandler.php',
                     ],
                 ],
             ],
