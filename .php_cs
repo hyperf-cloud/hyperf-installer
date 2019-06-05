@@ -45,7 +45,7 @@ return PhpCsFixer\Config::create()
             'imports_order' => [
                 'class', 'function', 'const',
             ],
-            'sort_algorithm' => 'length',
+            'sort_algorithm' => 'alpha',
         ],
         'single_line_comment_style' => [
             'comment_types' => [
@@ -84,7 +84,7 @@ return PhpCsFixer\Config::create()
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->exclude('bin')
+            ->exclude('public')
             ->exclude('runtime')
             ->exclude('vendor')
             ->in(__DIR__)

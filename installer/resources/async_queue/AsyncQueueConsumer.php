@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace App\Process;
 
-use Hyperf\Process\Annotation\Process;
 use Hyperf\AsyncQueue\Process\ConsumerProcess;
+use Hyperf\Process\Annotation\Process;
 
 /**
  * @Process

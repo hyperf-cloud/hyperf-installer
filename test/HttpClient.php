@@ -12,25 +12,25 @@ declare(strict_types=1);
 
 namespace HyperfTest;
 
-use Hyperf\Utils\Arr;
-use Hyperf\Utils\Context;
-use Hyperf\HttpServer\Server;
-use Hyperf\HttpMessage\Uri\Uri;
-use Hyperf\Utils\Packer\JsonPacker;
 use Hyperf\Contract\PackerInterface;
-use Swoole\Coroutine as SwCoroutine;
 use Hyperf\Dispatcher\HttpDispatcher;
-use Hyperf\HttpServer\CoreMiddleware;
-use Psr\Container\ContainerInterface;
 use Hyperf\HttpMessage\Server\Request;
-use Hyperf\Utils\Filesystem\Filesystem;
-use Psr\Http\Message\ResponseInterface;
-use Hyperf\HttpServer\MiddlewareManager;
-use Hyperf\HttpMessage\Stream\SwooleStream;
-use Hyperf\HttpMessage\Upload\UploadedFile;
-use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\HttpMessage\Server\Request as Psr7Request;
 use Hyperf\HttpMessage\Server\Response as Psr7Response;
+use Hyperf\HttpMessage\Stream\SwooleStream;
+use Hyperf\HttpMessage\Upload\UploadedFile;
+use Hyperf\HttpMessage\Uri\Uri;
+use Hyperf\HttpServer\CoreMiddleware;
+use Hyperf\HttpServer\MiddlewareManager;
+use Hyperf\HttpServer\Server;
+use Hyperf\Utils\Arr;
+use Hyperf\Utils\Context;
+use Hyperf\Utils\Filesystem\Filesystem;
+use Hyperf\Utils\Packer\JsonPacker;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Swoole\Coroutine as SwCoroutine;
 
 class HttpClient extends Server
 {

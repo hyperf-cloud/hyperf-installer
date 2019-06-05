@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace App\Kernel\Helper;
 
-use Hyperf\AsyncQueue\JobInterface;
-use Hyperf\Utils\ApplicationContext;
 use Hyperf\AsyncQueue\Driver\DriverFactory;
 use Hyperf\AsyncQueue\Driver\DriverInterface;
+use Hyperf\AsyncQueue\JobInterface;
+use Hyperf\Utils\ApplicationContext;
 
 class QueueHelper
 {
