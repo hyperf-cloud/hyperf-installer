@@ -13,52 +13,51 @@ declare(strict_types=1);
 namespace HyperfTest;
 
 use Hyperf\Utils\Arr;
-use GuzzleHttp\Client;
+use Hyperf\Utils\Context;
+use Hyperf\HttpServer\Server;
+use Hyperf\HttpMessage\Uri\Uri;
 use Hyperf\Utils\Packer\JsonPacker;
 use Hyperf\Contract\PackerInterface;
+use Swoole\Coroutine as SwCoroutine;
+use Hyperf\Dispatcher\HttpDispatcher;
+use Hyperf\HttpServer\CoreMiddleware;
 use Psr\Container\ContainerInterface;
+use Hyperf\HttpMessage\Server\Request;
+use Psr\Http\Message\ResponseInterface;
+use Hyperf\HttpServer\MiddlewareManager;
+use Hyperf\HttpMessage\Stream\SwooleStream;
+use Psr\Http\Message\ServerRequestInterface;
+use Hyperf\HttpMessage\Server\Request as Psr7Request;
+use Hyperf\HttpMessage\Server\Response as Psr7Response;
 
-class HttpClient
+class HttpClient extends Server
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var Client
-     */
-    protected $client;
-
     /**
      * @var PackerInterface
      */
     protected $packer;
 
-    public function __construct(ContainerInterface $container, PackerInterface $packer = null, $baseUri = 'http://127.0.0.1:9501')
+    public function __construct(ContainerInterface $container, PackerInterface $packer = null, $server = 'http')
     {
-        $this->container = $container;
+        parent::__construct('http', CoreMiddleware::class, $container, $container->get(HttpDispatcher::class));
         $this->packer = $packer ?? new JsonPacker();
-        $this->client = new Client([
-            'base_uri' => $baseUri,
-            'timeout' => 2,
-        ]);
+
+        $this->initCoreMiddleware($server);
     }
 
     public function get($uri, $data = [], $headers = [])
     {
-        if ($data) {
-            $uri .= '?' . http_build_query($data);
-        }
-        $response = $this->client->get($uri, [
+        $response = $this->request('GET', $uri, [
             'headers' => $headers,
+            'query' => $data,
         ]);
+
         return $this->packer->unpack($response->getBody()->getContents());
     }
 
     public function post($uri, $data = [], $headers = [])
     {
-        $response = $this->client->post($uri, [
+        $response = $this->request('POST', $uri, [
             'headers' => $headers,
             'form_params' => $data,
         ]);
@@ -69,11 +68,10 @@ class HttpClient
     public function json($uri, $data = [], $headers = [])
     {
         $headers['Content-Type'] = 'application/json';
-        $response = $this->client->post($uri, [
-            'json' => $data,
+        $response = $this->request('POST', $uri, [
             'headers' => $headers,
+            'json' => $data,
         ]);
-
         return $this->packer->unpack($response->getBody()->getContents());
     }
 
@@ -101,5 +99,64 @@ class HttpClient
         ]);
 
         return $this->packer->unpack($response->getBody()->getContents());
+    }
+
+    public function request(string $method, string $path, array $options = [])
+    {
+        /*
+         * @var Psr7Request
+         */
+        [$psr7Request, $psr7Response] = $this->init($method, $path, $options);
+
+        $middlewares = array_merge($this->middlewares, MiddlewareManager::get($this->serverName, $psr7Request->getUri()->getPath(), $psr7Request->getMethod()));
+
+        return $this->dispatcher->dispatch($psr7Request, $middlewares, $this->coreMiddleware);
+    }
+
+    protected function init(string $method, string $path, array $options = []): array
+    {
+        $this->flushContext();
+
+        $query = $options['query'] ?? [];
+        $params = $options['form_params'] ?? [];
+        $json = $options['json'] ?? [];
+        $headers = $options['headers'] ?? [];
+        $data = $params;
+
+        // Initialize PSR-7 Request and Response objects.
+        $uri = (new Uri())->withPath($path)->withQuery(http_build_query($query));
+
+        $content = http_build_query($params);
+        if ($method == 'POST' && data_get($headers, 'Content-Type') == 'application/json') {
+            $content = json_encode($json, JSON_UNESCAPED_UNICODE);
+            $data = $json;
+        }
+
+        $body = new SwooleStream($content);
+
+        $request = new Psr7Request($method, $uri, $headers, $body);
+        $request = $request->withQueryParams($query)
+            ->withParsedBody($data);
+
+        // $request->cookieParams = ($swooleRequest->cookie ?? []);
+        // $request->queryParams = ($swooleRequest->get ?? []);
+        // $request->serverParams = ($server ?? []);
+        // $request->parsedBody = ($swooleRequest->post ?? []);
+        // $request->uploadedFiles = self::normalizeFiles($swooleRequest->files ?? []);
+        // $request->swooleRequest = $swooleRequest;
+
+        Context::set(ServerRequestInterface::class, $psr7Request = $request);
+        Context::set(ResponseInterface::class, $psr7Response = new Psr7Response());
+
+        return [$psr7Request, $psr7Response];
+    }
+
+    protected function flushContext()
+    {
+        $context = SwCoroutine::getContext();
+
+        foreach ($context as $key => $value) {
+            unset($context[$key]);
+        }
     }
 }
