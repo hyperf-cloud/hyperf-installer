@@ -18,10 +18,13 @@ class IndexController extends Controller
     {
         $user = $this->request->input('user', 'Hyperf');
         $method = $this->request->getMethod();
+        $file = $this->request->file('file');
+
         return $this->response->success([
             'user' => $user,
             'method' => $method,
             'message' => 'Hello Hyperf.',
+            'file' => $file ? $file->getFilename() : null,
         ]);
     }
 }

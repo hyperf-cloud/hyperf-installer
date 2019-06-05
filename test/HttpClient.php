@@ -23,9 +23,11 @@ use Hyperf\Dispatcher\HttpDispatcher;
 use Hyperf\HttpServer\CoreMiddleware;
 use Psr\Container\ContainerInterface;
 use Hyperf\HttpMessage\Server\Request;
+use Hyperf\Utils\Filesystem\Filesystem;
 use Psr\Http\Message\ResponseInterface;
 use Hyperf\HttpServer\MiddlewareManager;
 use Hyperf\HttpMessage\Stream\SwooleStream;
+use Hyperf\HttpMessage\Upload\UploadedFile;
 use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\HttpMessage\Server\Request as Psr7Request;
 use Hyperf\HttpMessage\Server\Response as Psr7Response;
@@ -93,7 +95,7 @@ class HttpClient extends Server
             ];
         }
 
-        $response = $this->client->post($uri, [
+        $response = $this->request('POST', $uri, [
             'headers' => $headers,
             'multipart' => $multipart,
         ]);
@@ -121,6 +123,8 @@ class HttpClient extends Server
         $params = $options['form_params'] ?? [];
         $json = $options['json'] ?? [];
         $headers = $options['headers'] ?? [];
+        $multipart = $options['multipart'] ?? [];
+
         $data = $params;
 
         // Initialize PSR-7 Request and Response objects.
@@ -136,7 +140,8 @@ class HttpClient extends Server
 
         $request = new Psr7Request($method, $uri, $headers, $body);
         $request = $request->withQueryParams($query)
-            ->withParsedBody($data);
+            ->withParsedBody($data)
+            ->withUploadedFiles($this->normalizeFiles($multipart));
 
         // $request->cookieParams = ($swooleRequest->cookie ?? []);
         // $request->queryParams = ($swooleRequest->get ?? []);
@@ -158,5 +163,46 @@ class HttpClient extends Server
         foreach ($context as $key => $value) {
             unset($context[$key]);
         }
+    }
+
+    protected function normalizeFiles(array $multipart): array
+    {
+        $files = [];
+        $fileSystem = $this->container->get(Filesystem::class);
+
+        foreach ($multipart as $item) {
+            if (isset($item['name'], $item['contents'], $item['filename'])) {
+                $name = $item['name'];
+                $contents = $item['contents'];
+                $filename = $item['filename'];
+
+                $dir = BASE_PATH . '/runtime/uploads';
+                $tmpName = $dir . '/' . $filename;
+                $fileSystem->makeDirectory($dir);
+                $fileSystem->put($tmpName, $contents);
+
+                $stats = fstat($contents);
+
+                $files[$name] = new UploadedFile(
+                    $tmpName,
+                    $stats['size'],
+                    0,
+                    $name
+                );
+            }
+        }
+
+        return $files;
+    }
+
+    protected function getStream(string $resource)
+    {
+        $stream = fopen('php://temp', 'r+');
+        if ($resource !== '') {
+            fwrite($stream, $resource);
+            fseek($stream, 0);
+        }
+
+        return $stream;
     }
 }

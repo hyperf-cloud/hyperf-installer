@@ -49,5 +49,11 @@ class ExampleTest extends HttpTestCase
         $this->assertSame('Hello Hyperf.', $res['data']['message']);
         $this->assertSame('POST', $res['data']['method']);
         $this->assertSame('developer', $res['data']['user']);
+
+        $res = $this->file('/', ['name' => 'file', 'file' => BASE_PATH . '/README.md']);
+
+        $this->assertSame('Hello Hyperf.', $res['data']['message']);
+        $this->assertSame('POST', $res['data']['method']);
+        $this->assertSame('README.md', $res['data']['file']);
     }
 }
