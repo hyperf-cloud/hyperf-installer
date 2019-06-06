@@ -29,6 +29,7 @@
         "hyperf/di": "dev-master",
         "hyperf/dispatcher": "dev-master",
         "hyperf/event": "dev-master",
+        "hyperf/exception-handler": "dev-master",
         "hyperf/framework": "dev-master",
         "hyperf/guzzle": "dev-master",
         "hyperf/http-server": "dev-master",
