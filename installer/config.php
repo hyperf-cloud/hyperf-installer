@@ -42,6 +42,18 @@ return [
         'hyperf/grpc-server' => [
             'version' => 'dev-master',
         ],
+        'hyperf/elasticsearch' => [
+            'version' => 'dev-master',
+        ],
+        'hyperf/config-apollo' => [
+            'version' => 'dev-master',
+        ],
+        'hyperf/config-aliyun-acm' => [
+            'version' => 'dev-master',
+        ],
+        'hyperf/tracer' => [
+            'version' => 'dev-master',
+        ],
     ],
     'require-dev' => [
     ],
