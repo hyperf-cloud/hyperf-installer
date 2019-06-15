@@ -75,7 +75,7 @@ return [
             ],
         ],
         'config-center' => [
-            'question' => 'Which Config center do you want to use ?',
+            'question' => 'Which config center do you want to use ?',
             'default' => 'n',
             'required' => false,
             'custom-package' => true,
@@ -201,7 +201,7 @@ return [
             'force' => true,
             'custom-package' => true,
             'options' => [
-                '1' => [
+                'y' => [
                     'name' => 'hyperf/tracer',
                     'packages' => [
                         'hyperf/tracer',
