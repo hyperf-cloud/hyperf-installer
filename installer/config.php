@@ -107,8 +107,8 @@ return [
             'force' => true,
             'custom-package' => false,
             'options' => [
-                'y' => [
-                    'name' => 'constants',
+                1 => [
+                    'name' => 'yes',
                     'packages' => [
                         'hyperf/constants',
                     ],
@@ -126,8 +126,8 @@ return [
             'force' => true,
             'custom-package' => true,
             'options' => [
-                'y' => [
-                    'name' => 'async-queue',
+                1 => [
+                    'name' => 'yes',
                     'packages' => [
                         'hyperf/async-queue',
                     ],
@@ -146,8 +146,8 @@ return [
             'force' => true,
             'custom-package' => true,
             'options' => [
-                'y' => [
-                    'name' => 'amqp',
+                1 => [
+                    'name' => 'yes',
                     'packages' => [
                         'hyperf/amqp',
                     ],
@@ -164,8 +164,8 @@ return [
             'force' => true,
             'custom-package' => true,
             'options' => [
-                'y' => [
-                    'name' => 'model-cache',
+                1 => [
+                    'name' => 'yes',
                     'packages' => [
                         'hyperf/model-cache',
                     ],
@@ -183,8 +183,8 @@ return [
             'force' => true,
             'custom-package' => true,
             'options' => [
-                'y' => [
-                    'name' => 'elasticsearch',
+                1 => [
+                    'name' => 'yes',
                     'packages' => [
                         'hyperf/elasticsearch',
                     ],
@@ -201,8 +201,8 @@ return [
             'force' => true,
             'custom-package' => true,
             'options' => [
-                'y' => [
-                    'name' => 'hyperf/tracer',
+                1 => [
+                    'name' => 'yes',
                     'packages' => [
                         'hyperf/tracer',
                     ],
