@@ -47,13 +47,13 @@ return [
     ],
     'questions' => [
         'rpc' => [
-            'question' => 'Which rpc component do you want to use?',
+            'question' => 'Which RPC protocol do you want to use ?',
             'default' => 'n',
             'required' => false,
             'custom-package' => true,
             'options' => [
                 1 => [
-                    'name' => 'json-rpc',
+                    'name' => 'JSON-RPC',
                     'packages' => [
                         'hyperf/json-rpc',
                         'hyperf/rpc',
@@ -64,7 +64,7 @@ return [
                     ],
                 ],
                 2 => [
-                    'name' => 'grpc',
+                    'name' => 'gRPC',
                     'packages' => [
                         'hyperf/grpc-client',
                         'hyperf/grpc-server',
@@ -74,14 +74,40 @@ return [
                 ],
             ],
         ],
+        'config-center' => [
+            'question' => 'Which Config center do you want to use ?',
+            'default' => 'n',
+            'required' => false,
+            'custom-package' => true,
+            'options' => [
+                1 => [
+                    'name' => 'Apollo',
+                    'packages' => [
+                        'hyperf/config-apollo',
+                    ],
+                    'resources' => [
+                        'resources/config_center/apollo.php' => 'config/autoload/apollo.php',
+                    ],
+                ],
+                2 => [
+                    'name' => 'Aliyun ACM',
+                    'packages' => [
+                        'hyperf/config-aliyun-acm',
+                    ],
+                    'resources' => [
+                        'resources/config_center/aliyun_acm.php' => 'config/autoload/aliyun_acm.php',
+                    ],
+                ],
+            ],
+        ],
         'constants' => [
-            'question' => 'Do you want to use hyperf/constants component?',
+            'question' => 'Do you want to use hyperf/constants component ?',
             'default' => 'n',
             'required' => false,
             'force' => true,
             'custom-package' => false,
             'options' => [
-                1 => [
+                'y' => [
                     'name' => 'constants',
                     'packages' => [
                         'hyperf/constants',
@@ -94,19 +120,18 @@ return [
             ],
         ],
         'async-queue' => [
-            'question' => 'Do you want to use hyperf/async-queue component?',
+            'question' => 'Do you want to use hyperf/async-queue component ? (A simple redis queue component)',
             'default' => 'n',
             'required' => false,
             'force' => true,
             'custom-package' => true,
             'options' => [
-                1 => [
+                'y' => [
                     'name' => 'async-queue',
                     'packages' => [
                         'hyperf/async-queue',
                     ],
                     'resources' => [
-                        'resources/async_queue/QueueHelper.php' => 'app/Kernel/Helper/QueueHelper.php',
                         'resources/async_queue/async_queue.php' => 'config/autoload/async_queue.php',
                         'resources/async_queue/AsyncQueueConsumer.php' => 'app/Process/processes.php',
                         'resources/async_queue/QueueHandleListener.php' => 'app/Listener/QueueHandleListener.php',
@@ -115,32 +140,31 @@ return [
             ],
         ],
         'amqp' => [
-            'question' => 'Do you want to use hyperf/amqp component?',
+            'question' => 'Do you want to use hyperf/amqp component ?',
             'default' => 'n',
             'required' => false,
             'force' => true,
             'custom-package' => true,
             'options' => [
-                1 => [
+                'y' => [
                     'name' => 'amqp',
                     'packages' => [
                         'hyperf/amqp',
                     ],
                     'resources' => [
-                        'resources/amqp/AmqpHelper.php' => 'app/Kernel/Helper/AmqpHelper.php',
                         'resources/amqp/amqp.php' => 'config/autoload/amqp.php',
                     ],
                 ],
             ],
         ],
         'model-cache' => [
-            'question' => 'Do you want to use hyperf/model-cache component?',
+            'question' => 'Do you want to use hyperf/model-cache component ?',
             'default' => 'n',
             'required' => false,
             'force' => true,
             'custom-package' => true,
             'options' => [
-                1 => [
+                'y' => [
                     'name' => 'model-cache',
                     'packages' => [
                         'hyperf/model-cache',
@@ -148,6 +172,42 @@ return [
                     'resources' => [
                         'resources/model_cache/Model.php' => 'app/Model/Model.php',
                         'resources/model_cache/databases.php' => 'config/autoload/databases.php',
+                    ],
+                ],
+            ],
+        ],
+        'elasticsearch' => [
+            'question' => 'Do you want to use hyperf/elasticsearch component ?',
+            'default' => 'n',
+            'required' => false,
+            'force' => true,
+            'custom-package' => true,
+            'options' => [
+                'y' => [
+                    'name' => 'elasticsearch',
+                    'packages' => [
+                        'hyperf/elasticsearch',
+                    ],
+                    'resources' => [
+                        // 'resources/elasticsearch/elasticsearch.php' => 'config/autoload/elasticsearch.php',
+                    ],
+                ],
+            ],
+        ],
+        'opentracing' => [
+            'question' => 'Do you want to use hyperf/tracer component ? (A open tracing protocol component, adapte with Zipkin etc.)',
+            'default' => 'n',
+            'required' => false,
+            'force' => true,
+            'custom-package' => true,
+            'options' => [
+                '1' => [
+                    'name' => 'hyperf/tracer',
+                    'packages' => [
+                        'hyperf/tracer',
+                    ],
+                    'resources' => [
+                        'resources/tracer/opentracing.php' => 'config/autoload/opentracing.php',
                     ],
                 ],
             ],

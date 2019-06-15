@@ -29,9 +29,9 @@ class QueueHandleListener implements ListenerInterface
 {
     protected $logger;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(LoggerFactory $loggerFactory)
     {
-        $this->logger = $container->get(LoggerFactory::class)->get('queue');
+        $this->logger = $loggerFactory->get('queue');
     }
 
     public function listen(): array
