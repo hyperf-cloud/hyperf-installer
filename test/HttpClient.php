@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * This file is part of Hyperf.
  *
- * @link     https://hyperf.io
+ * @link     https://www.hyperf.io
  * @document https://doc.hyperf.io
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
@@ -14,7 +14,6 @@ namespace HyperfTest;
 
 use Hyperf\Contract\PackerInterface;
 use Hyperf\Dispatcher\HttpDispatcher;
-use Hyperf\HttpMessage\Server\Request;
 use Hyperf\HttpMessage\Server\Request as Psr7Request;
 use Hyperf\HttpMessage\Server\Response as Psr7Response;
 use Hyperf\HttpMessage\Stream\SwooleStream;
@@ -142,13 +141,6 @@ class HttpClient extends Server
         $request = $request->withQueryParams($query)
             ->withParsedBody($data)
             ->withUploadedFiles($this->normalizeFiles($multipart));
-
-        // $request->cookieParams = ($swooleRequest->cookie ?? []);
-        // $request->queryParams = ($swooleRequest->get ?? []);
-        // $request->serverParams = ($server ?? []);
-        // $request->parsedBody = ($swooleRequest->post ?? []);
-        // $request->uploadedFiles = self::normalizeFiles($swooleRequest->files ?? []);
-        // $request->swooleRequest = $swooleRequest;
 
         Context::set(ServerRequestInterface::class, $psr7Request = $request);
         Context::set(ResponseInterface::class, $psr7Response = new Psr7Response());
