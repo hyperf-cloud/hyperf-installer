@@ -31,7 +31,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Swoole\Coroutine as SwCoroutine;
 
-class HttpClient extends Server
+class Client extends Server
 {
     /**
      * @var PackerInterface

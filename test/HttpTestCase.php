@@ -24,14 +24,14 @@ use PHPUnit\Framework\TestCase;
 abstract class HttpTestCase extends TestCase
 {
     /**
-     * @var HttpClient
+     * @var Client
      */
     protected $client;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->client = make(HttpClient::class);
+        $this->client = make(Client::class);
     }
 
     public function __call($name, $arguments)
